@@ -27,15 +27,6 @@ int particion(int *array, int bajo, int alto)
 
     return (i + 1);
 }
-
-void quick_sort(int *array, size_t size)
-{
-    if (array == NULL || size < 2)
-        return;
-
-    quick_sort_helper(array, 0, size - 1);
-}
-
 void quick_sort_helper(int *array, int bajo, int alto)
 {
     if (bajo < alto)
@@ -44,6 +35,13 @@ void quick_sort_helper(int *array, int bajo, int alto)
         quick_sort_helper(array, bajo, indice_pivote - 1);
         quick_sort_helper(array, indice_pivote + 1, alto);
     }
+}
+void quick_sort(int *array, size_t size)
+{
+    if (array == NULL || size < 2)
+        return;
+
+    quick_sort_helper(array, 0, size - 1);
 }
 int main(void)
 {
