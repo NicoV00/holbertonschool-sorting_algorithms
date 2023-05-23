@@ -1,61 +1,66 @@
+#include <stdio.h>
 #include "sort.h"
 
-void swap(int *a, int *b)
+/**
+ * particion - this splits the array 
+ * @array: this is an array
+ * @bajo: this is an integer
+ * @high: this is an integer
+ * Return: partition
+ */
+
+int partition(int *array, int low, int high)
 {
-    int temp = *a;
-    *a = *b;
-    *b = temp;
+	int pivot = array[high];
+	int x, i = low - 1;
+
+	for (int j = low; j <= high - 1; j++)
+	{
+		if (array[j] <= pivot)
+		{
+			i++;
+			x = array[i];
+			array[i] = array[j];
+			array[j] = x;
+		}
+	}
+	x = array[i + 1];
+	array[i + 1] = array[high];
+	array[high] = x;
+	return (i + 1);
 }
 
-int particion(int *array, int bajo, int alto)
-{
-    int pivote = array[alto];
-    int i = bajo - 1;
+/**
+ * quick_sort - wih this function you can sort an array 
+ * @array: this is an array of integer
+ * @size: this is a size
+ * Return: void
+ */
 
-    for (int j = bajo; j < alto; j++)
-    {
-        if (array[j] < pivote)
-        {
-            i++;
-            swap(&array[i], &array[j]);
-            print_array(array, alto + 1);
-        }
-    }
-
-    swap(&array[i + 1], &array[alto]);
-    print_array(array, alto + 1);
-
-    return (i + 1);
-}
-void quick_sort_helper(int *array, int bajo, int alto)
-{
-    if (bajo < alto)
-    {
-        int indice_pivote = particion(array, bajo, alto);
-        quick_sort_helper(array, bajo, indice_pivote - 1);
-        quick_sort_helper(array, indice_pivote + 1, alto);
-    }
-}
 void quick_sort(int *array, size_t size)
 {
-    if (array == NULL || size < 2)
-        return;
+	int stack[size];
+	int top = -1;
 
-    quick_sort_helper(array, 0, size - 1);
-}
-int main(void)
-{
-    int array[] = {19, 48, 99, 71, 13, 52, 96, 73, 86, 7};
-    size_t n = sizeof(array) / sizeof(array[0]);
+	stack[++top] = 0;
+	stack[++top] = size - 1;
 
-    printf("Arreglo original: ");
-    print_array(array, n);
+	while (top >= 0)
+	{
+		int high = stack[top--];
+		int low = stack[top--];
+		int pivot_index = partition(array, low, high);
 
-    printf("\nOrdenando el arreglo...\n");
-    quick_sort(array, n);
-
-    printf("\nArreglo ordenado: ");
-    print_array(array, n);
-
-    return 0;
+		if (pivot_index - 1 > low)
+		{
+			stack[++top] = low;
+			stack[++top] = pivot_index - 1;
+		}
+		if (pivot_index + 1 < high)
+		{
+			stack[++top] = pivot_index + 1;
+			stack[++top] = high;
+		}
+		print_array(array, size);
+	}
 }
