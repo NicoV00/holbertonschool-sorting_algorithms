@@ -25,17 +25,17 @@ int partition(int *array, int low, int high)
 
 void quick_sort(int *array, size_t size)
 {
+	int *stack = NULL;
+	int top = -1;
+
 	if (size <= 1)
 		return;
 
-	int *stack = malloc(size * sizeof(int));
+	stack = malloc(size * sizeof(int));
 	if (stack == NULL)
 	{
-		// Manejar el caso de asignación de memoria fallida
 		return;
 	}
-
-	int top = -1;
 
 	stack[++top] = 0;
 	stack[++top] = size - 1;
