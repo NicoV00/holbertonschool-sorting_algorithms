@@ -12,7 +12,7 @@
 int partition(int *array, int low, int high)
 {
 	int pivot = array[high];
-	int x, i = low - 1;
+	int x, i = low - 1, j;
 
 	for (j = low; j <= high - 1; j++)
 	{
