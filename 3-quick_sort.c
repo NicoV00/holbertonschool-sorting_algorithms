@@ -39,9 +39,10 @@ int partition(int *array, int low, int high)
 
 void quick_sort(int *array, size_t size)
 {
-	int stack[size];
+	int stack;
 	int top = -1;
 
+    stack = malloc(size * sizeof(int));
 	stack[++top] = 0;
 	stack[++top] = size - 1;
 
@@ -63,4 +64,5 @@ void quick_sort(int *array, size_t size)
 		}
 		print_array(array, size);
 	}
+    free(stack);
 }
