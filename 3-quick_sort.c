@@ -1,13 +1,6 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include "sort.h"
-
-/**
- * particion - this splits the array 
- * @array: this is an array
- * @bajo: this is an integer
- * @high: this is an integer
- * Return: partition
- */
 
 int partition(int *array, int low, int high)
 {
@@ -30,19 +23,20 @@ int partition(int *array, int low, int high)
 	return (i + 1);
 }
 
-/**
- * quick_sort - wih this function you can sort an array 
- * @array: this is an array of integer
- * @size: this is a size
- * Return: void
- */
-
 void quick_sort(int *array, size_t size)
 {
-	int stack;
+	if (size <= 1)
+		return;
+
+	int *stack = malloc(size * sizeof(int));
+	if (stack == NULL)
+	{
+		// Manejar el caso de asignación de memoria fallida
+		return;
+	}
+
 	int top = -1;
 
-    stack = malloc(size * sizeof(int));
 	stack[++top] = 0;
 	stack[++top] = size - 1;
 
@@ -64,5 +58,6 @@ void quick_sort(int *array, size_t size)
 		}
 		print_array(array, size);
 	}
-    free(stack);
+
+	free(stack);
 }
